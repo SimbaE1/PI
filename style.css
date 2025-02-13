@@ -47,3 +47,8 @@ button:hover {
 input[type="file"] {
     display: none;
 }
+
+#test-progress {
+    font-weight: bold;
+    color: red;
+}
