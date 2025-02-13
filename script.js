@@ -14,23 +14,36 @@ function recitePi() {
     speakText(PI_250_DIGITS);
 }
 
-// Start Speech-to-Text Test
+// Start Speech Test Using Web Speech API
 function startTestRecitation() {
+    if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
+        alert("Speech recognition is not supported in this browser.");
+        return;
+    }
+
     document.getElementById("test-progress").textContent = "Listening...";
-    
+
     recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     recognition.lang = "en-US";
-    recognition.start();
+    recognition.continuous = false;
+    recognition.interimResults = false;
 
     recognition.onresult = (event) => {
-        const resultText = event.results[0][0].transcript.replace(/[^0-9]/g, "").slice(0, 250);
-        document.getElementById("speech-result").textContent = resultText || "No numbers recognized";
-        processSpeechTest(resultText);
+        const transcript = event.results[0][0].transcript;
+        const cleanText = transcript.replace(/[^0-9]/g, "").slice(0, 250);
+        processSpeechTest(cleanText);
+    };
+
+    recognition.onerror = (event) => {
+        console.error("Speech Recognition Error: ", event.error);
+        document.getElementById("test-progress").textContent = "Error in recognition.";
     };
 
     recognition.onend = () => {
         document.getElementById("test-progress").textContent = "Test finished.";
     };
+
+    recognition.start();
 }
 
 // Stop Speech-to-Text Test
@@ -41,10 +54,11 @@ function stopTestRecitation() {
     }
 }
 
-// Process Speech Test Results
+// Process and Compare Speech with Pi
 function processSpeechTest(text) {
     const accuracy = calculateAccuracy(text, PI_250_DIGITS);
-    
+
+    document.getElementById("speech-result").textContent = text || "No numbers recognized";
     document.getElementById("speech-length").textContent = text.length;
     document.getElementById("speech-accuracy").textContent = accuracy.toFixed(2);
 }
@@ -75,9 +89,9 @@ function handleImageUpload(event) {
 
 // Process and compare recognized handwriting with Pi
 function processRecognizedText(text) {
-    const cleanText = text.replace(/[^0-9]/g, "").slice(0, 250); // Remove non-digits & limit to 250 digits
+    const cleanText = text.replace(/[^0-9]/g, "").slice(0, 250);
     const accuracy = calculateAccuracy(cleanText, PI_250_DIGITS);
-    
+
     document.getElementById("recognized-text").textContent = cleanText || "No digits recognized";
     document.getElementById("recognized-length").textContent = cleanText.length;
     document.getElementById("accuracy").textContent = accuracy.toFixed(2);
