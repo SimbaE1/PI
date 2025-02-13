@@ -8,9 +8,8 @@ function generatePi(digits) {
 }
 
 function recitePi() {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(document.getElementById("pi-digits").textContent);
-    synth.speak(utterance);
+    const text = document.getElementById("pi-digits").textContent;
+    speakText(text);
 }
 
 function testRecitation() {
@@ -20,6 +19,15 @@ function testRecitation() {
     recognition.onresult = (event) => {
         document.getElementById("speech-result").textContent = event.results[0][0].transcript;
     };
+}
+
+function speakText(text) {
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(utterance);
+    } else {
+        alert("Your browser doesn't support speech synthesis.");
+    }
 }
 
 function handleImageUpload(event) {
