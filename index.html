@@ -12,9 +12,15 @@
         <p id="pi-digits"></p>
 
         <button onclick="recitePi()">Recite Pi</button>
-        <button onclick="testRecitation()">Test Recitation</button>
+
+        <h3>Speech Test</h3>
+        <button onclick="startTestRecitation()">Start Test</button>
+        <button onclick="stopTestRecitation()">Stop Test</button>
+        <p id="test-progress">Press start to begin.</p>
 
         <p>You said: <span id="speech-result"></span></p>
+        <p>Accuracy: <span id="speech-accuracy"></span>%</p>
+        <p>Length: <span id="speech-length"></span> digits</p>
 
         <label for="imageUpload" class="file-label">📷 Upload or Take a Picture</label>
         <input type="file" id="imageUpload" accept="image/*" capture="environment">
