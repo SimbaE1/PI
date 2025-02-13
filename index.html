@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi Memorization App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pi Memorization App</h1>
+        <p id="pi-digits">3.1415926535...</p>
+        <button onclick="recitePi()">Recite Pi</button>
+        <button onclick="testRecitation()">Test Recitation</button>
+        <p>You said: <span id="speech-result"></span></p>
+        <input type="file" id="imageUpload">
+        <p>Recognized Handwriting: <span id="recognized-text"></span></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
