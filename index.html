@@ -10,12 +10,18 @@
     <div class="container">
         <h1>Pi Memorization App</h1>
         <p id="pi-digits">3.1415926535...</p>
+        
         <button onclick="recitePi()">Recite Pi</button>
         <button onclick="testRecitation()">Test Recitation</button>
+        
         <p>You said: <span id="speech-result"></span></p>
-        <input type="file" id="imageUpload">
+
+        <label for="imageUpload" class="file-label">📷 Upload or Take a Picture</label>
+        <input type="file" id="imageUpload" accept="image/*" capture="environment">
+
         <p>Recognized Handwriting: <span id="recognized-text"></span></p>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.0.2/tesseract.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
